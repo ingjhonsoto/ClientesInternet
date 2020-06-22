@@ -9,6 +9,6 @@ package interfaces;
  *
  * @author Cristhian
  */
-public class prueba {
-    
+public class prueba extends conexion.conexion{
+    system.println();
 }
