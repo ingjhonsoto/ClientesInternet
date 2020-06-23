@@ -6,6 +6,13 @@
 package interfaces;
 
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 /**
  *
@@ -16,11 +23,14 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    
     public Menu() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        new Thread(new hilo()).start();
         login_cargado();
         menu.setVisible(false);
+        escritorio.setBorder(new metodos.ImagenFondo());
     }
 
     /**
@@ -33,6 +43,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
+        label_hora = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         m_modulos = new javax.swing.JMenu();
         m_tablas = new javax.swing.JMenu();
@@ -41,16 +52,29 @@ public class Menu extends javax.swing.JFrame {
         m_utilitarios = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
+
+        label_hora.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        label_hora.setForeground(new java.awt.Color(255, 255, 255));
+        label_hora.setText("Hora y minuto");
+
+        escritorio.setLayer(label_hora, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 713, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap(322, Short.MAX_VALUE)
+                .addComponent(label_hora)
+                .addContainerGap())
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap(333, Short.MAX_VALUE)
+                .addComponent(label_hora)
+                .addContainerGap())
         );
 
         m_modulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/modules.png"))); // NOI18N
@@ -131,6 +155,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel label_hora;
     private javax.swing.JMenu m_modulos;
     private javax.swing.JMenu m_movimientos;
     private javax.swing.JMenu m_reportes;
@@ -146,5 +171,28 @@ public class Menu extends javax.swing.JFrame {
         Dimension login_size=cargar_login.getSize();
         cargar_login.setLocation((escritorio_size.width+login_size.width)/2, (escritorio_size.height+login_size.height)/7);
         cargar_login.show();
+    }
+     
+    public class hilo implements Runnable {
+
+        @Override
+        public void run() {
+            new Timer(0, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Date d = new Date();
+                    SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss");
+                    label_hora.setText(s.format(d));
+                }
+            }).start();
+
+        }
+
+    }
+    
+    @Override 
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
+        return retValue;
     }
 }
