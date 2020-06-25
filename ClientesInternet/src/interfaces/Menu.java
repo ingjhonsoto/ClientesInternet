@@ -47,6 +47,7 @@ public class Menu extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         m_modulos = new javax.swing.JMenu();
         m_tablas = new javax.swing.JMenu();
+        sm_rclientes = new javax.swing.JMenuItem();
         m_movimientos = new javax.swing.JMenu();
         m_reportes = new javax.swing.JMenu();
         m_utilitarios = new javax.swing.JMenu();
@@ -85,6 +86,17 @@ public class Menu extends javax.swing.JFrame {
         m_tablas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/tables.png"))); // NOI18N
         m_tablas.setText("Tablas");
         m_tablas.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        sm_rclientes.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_rclientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/register_customer.png"))); // NOI18N
+        sm_rclientes.setText("Registro de Clientes");
+        sm_rclientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_rclientesActionPerformed(evt);
+            }
+        });
+        m_tablas.add(sm_rclientes);
+
         menu.add(m_tablas);
 
         m_movimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/movements.png"))); // NOI18N
@@ -117,6 +129,13 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void sm_rclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rclientesActionPerformed
+        RegistroClientes rc=new RegistroClientes();
+        escritorio.add(rc);
+        //rc.setLocation(CENTER_ALIGNMENT);
+        rc.show();
+    }//GEN-LAST:event_sm_rclientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +173,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JLabel label_hora;
     private javax.swing.JMenu m_modulos;
     private javax.swing.JMenu m_movimientos;
@@ -162,6 +181,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu m_tablas;
     private javax.swing.JMenu m_utilitarios;
     public static javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem sm_rclientes;
     // End of variables declaration//GEN-END:variables
 
      private void login_cargado(){

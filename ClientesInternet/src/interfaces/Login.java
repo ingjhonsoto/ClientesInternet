@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import com.sun.glass.events.KeyEvent;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -42,11 +43,11 @@ public class Login extends javax.swing.JInternalFrame {
         txt_user = new javax.swing.JTextField();
         label_password = new javax.swing.JLabel();
         txt_password = new javax.swing.JPasswordField();
-        chk_verificar = new javax.swing.JCheckBox();
         btn_acceder = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
         label_fondo = new javax.swing.JLabel();
 
+        setTitle("Login");
         setPreferredSize(new java.awt.Dimension(350, 430));
         getContentPane().setLayout(null);
 
@@ -68,21 +69,17 @@ public class Login extends javax.swing.JInternalFrame {
         label_password.setBounds(61, 200, 48, 48);
 
         txt_password.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txt_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_passwordKeyReleased(evt);
+            }
+        });
         getContentPane().add(txt_password);
         txt_password.setBounds(130, 210, 167, 23);
 
-        chk_verificar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        chk_verificar.setText("Verificar");
-        chk_verificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chk_verificarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(chk_verificar);
-        chk_verificar.setBounds(61, 285, 75, 25);
-
         btn_acceder.setBackground(new java.awt.Color(102, 255, 102));
         btn_acceder.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btn_acceder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/accept.png"))); // NOI18N
         btn_acceder.setText("Acceder");
         btn_acceder.setEnabled(false);
         btn_acceder.addActionListener(new java.awt.event.ActionListener() {
@@ -91,10 +88,11 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btn_acceder);
-        btn_acceder.setBounds(142, 285, 81, 25);
+        btn_acceder.setBounds(70, 280, 110, 29);
 
         btn_salir.setBackground(new java.awt.Color(255, 51, 51));
         btn_salir.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/out.png"))); // NOI18N
         btn_salir.setText("Salir");
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +100,7 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(btn_salir);
-        btn_salir.setBounds(233, 285, 61, 25);
+        btn_salir.setBounds(190, 280, 110, 29);
 
         label_fondo.setPreferredSize(new java.awt.Dimension(350, 430));
         getContentPane().add(label_fondo);
@@ -117,19 +115,22 @@ public class Login extends javax.swing.JInternalFrame {
         interfaces.Menu.menu.setVisible(true);
     }//GEN-LAST:event_btn_accederActionPerformed
 
-    private void chk_verificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_verificarActionPerformed
-        verifica();
-    }//GEN-LAST:event_chk_verificarActionPerformed
-
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btn_salirActionPerformed
+
+    private void txt_passwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passwordKeyReleased
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(txt_user.getText().length()>0 && txt_password.getText().length()>0){
+                verifica();
+            }
+        }
+    }//GEN-LAST:event_txt_passwordKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acceder;
     private javax.swing.JButton btn_salir;
-    private javax.swing.JCheckBox chk_verificar;
     private javax.swing.JLabel label_fondo;
     private javax.swing.JLabel label_password;
     private javax.swing.JLabel label_title;
@@ -141,7 +142,6 @@ public class Login extends javax.swing.JInternalFrame {
     private void verifica(){
         String user="admin", password="admin";
         if(user.equals(txt_user.getText()) && password.equals(txt_password.getText())){
-            JOptionPane.showMessageDialog(this, "Credenciales Correctas");
             btn_acceder.setEnabled(true);
         }else{
             JOptionPane.showMessageDialog(this, "Credenciales Incorrectas");
