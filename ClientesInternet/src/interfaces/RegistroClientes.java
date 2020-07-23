@@ -5,6 +5,10 @@
  */
 package interfaces;
 
+import com.sun.glass.events.KeyEvent;
+import static interfaces.Menu.escritorio;
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
 import metodos.Validaciones;
 
 /**
@@ -48,8 +52,8 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setResizable(true);
         setTitle("Registro");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
 
         label_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         label_title.setText("Reistro de Clientes");
@@ -110,6 +114,9 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
 
         txt_celular.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txt_celular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_celularKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_celularKeyTyped(evt);
             }
@@ -119,6 +126,7 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
         btn_registrar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btn_registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/register.png"))); // NOI18N
         btn_registrar.setText("Registrar");
+        btn_registrar.setEnabled(false);
         btn_registrar.setPreferredSize(new java.awt.Dimension(120, 25));
         btn_registrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,29 +162,29 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(label_amaterno)
-                                .addComponent(label_apaterno)
-                                .addComponent(label_nombres)
-                                .addComponent(label_dni)
-                                .addComponent(label_direccion)
-                                .addComponent(label_celular))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_nombres)
-                                .addComponent(txt_dni)
-                                .addComponent(txt_apaterno)
-                                .addComponent(txt_amaterno)
-                                .addComponent(cb_direccion, 0, 150, Short.MAX_VALUE)
-                                .addComponent(txt_celular)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                            .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label_amaterno)
+                                    .addComponent(label_apaterno)
+                                    .addComponent(label_nombres)
+                                    .addComponent(label_dni)
+                                    .addComponent(label_direccion)
+                                    .addComponent(label_celular))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_nombres)
+                                    .addComponent(txt_dni)
+                                    .addComponent(txt_apaterno)
+                                    .addComponent(txt_amaterno)
+                                    .addComponent(cb_direccion, 0, 150, Short.MAX_VALUE)
+                                    .addComponent(txt_celular)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,34 +239,35 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_amaternoActionPerformed
 
     private void txt_dniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dniKeyTyped
-        metodos.Validaciones validar=new Validaciones();
+        metodos.Validaciones validar = new Validaciones();
         validar.validacion_numeros(evt);
         validar.limite_txtdni(txt_dni.getText(), evt);
     }//GEN-LAST:event_txt_dniKeyTyped
 
     private void txt_nombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombresKeyTyped
-        metodos.Validaciones validar=new Validaciones();
+        metodos.Validaciones validar = new Validaciones();
         validar.validacion_letras(evt);
     }//GEN-LAST:event_txt_nombresKeyTyped
 
     private void txt_apaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apaternoKeyTyped
-        metodos.Validaciones validar=new Validaciones();
+        metodos.Validaciones validar = new Validaciones();
         validar.validacion_letras(evt);
     }//GEN-LAST:event_txt_apaternoKeyTyped
 
     private void txt_amaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_amaternoKeyTyped
-        metodos.Validaciones validar=new Validaciones();
+        metodos.Validaciones validar = new Validaciones();
         validar.validacion_letras(evt);
     }//GEN-LAST:event_txt_amaternoKeyTyped
 
     private void txt_celularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_celularKeyTyped
-        metodos.Validaciones validar=new Validaciones();
+        metodos.Validaciones validar = new Validaciones();
         validar.validacion_numeros(evt);
         validar.limite_txtcelular(txt_celular.getText(), evt);
     }//GEN-LAST:event_txt_celularKeyTyped
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
         clean();
+        btn_registrar.setEnabled(false);
     }//GEN-LAST:event_btn_limpiarActionPerformed
 
     private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
@@ -268,10 +277,19 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
     private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
         clean();
         dispose();
-        RegistroIPs cargar_rip=new RegistroIPs();
-        interfaces.Menu.escritorio.add(cargar_rip);
+        RegistroIPs cargar_rip = new RegistroIPs();
+        escritorio.add(cargar_rip);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension rip_size = cargar_rip.getSize();
+        cargar_rip.setLocation((escritorio_size.width - rip_size.width) / 2, (escritorio_size.height - rip_size.height) / 2);
         cargar_rip.show();
     }//GEN-LAST:event_btn_registrarActionPerformed
+
+    private void txt_celularKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_celularKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            verificar();
+        }
+    }//GEN-LAST:event_txt_celularKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -292,8 +310,8 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_dni;
     private javax.swing.JTextField txt_nombres;
     // End of variables declaration//GEN-END:variables
-    
-    private void clean(){
+
+    private void clean() {
         txt_dni.setText("");
         txt_nombres.setText("");
         txt_apaterno.setText("");
@@ -301,5 +319,15 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
         cb_direccion.setSelectedIndex(0);
         txt_celular.setText("");
         txt_dni.requestFocus();
+    }
+
+    private void verificar() {
+        if (txt_dni.getText().isEmpty() || txt_nombres.getText().isEmpty() || txt_apaterno.getText().isEmpty()
+                || txt_amaterno.getText().isEmpty() || txt_celular.getText().isEmpty() || cb_direccion.getSelectedIndex() == 0) {
+            txt_dni.requestFocus();
+            JOptionPane.showMessageDialog(this, "ES OBLIGATORIO RELLENAR TODOS LOS CAMPOS", "ERROR...", JOptionPane.ERROR_MESSAGE);
+        } else {
+            btn_registrar.setEnabled(true);
+        }
     }
 }

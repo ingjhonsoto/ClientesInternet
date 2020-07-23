@@ -7,11 +7,14 @@ package interfaces;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
@@ -23,11 +26,12 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    
     public Menu() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         new Thread(new hilo()).start();
+        Image icon = new ImageIcon(getClass().getResource("/recursos/icono.png")).getImage();
+        setIconImage(icon);
         login_cargado();
         menu.setVisible(false);
         escritorio.setBorder(new metodos.ImagenFondo());
@@ -48,9 +52,16 @@ public class Menu extends javax.swing.JFrame {
         m_modulos = new javax.swing.JMenu();
         m_tablas = new javax.swing.JMenu();
         sm_rclientes = new javax.swing.JMenuItem();
+        sm_restados = new javax.swing.JMenuItem();
+        sm_rtipos = new javax.swing.JMenuItem();
         m_movimientos = new javax.swing.JMenu();
+        sm_rcobros = new javax.swing.JMenuItem();
         m_reportes = new javax.swing.JMenu();
+        sm_clientes = new javax.swing.JMenuItem();
+        sm_record = new javax.swing.JMenuItem();
+        sm_infoc = new javax.swing.JMenuItem();
         m_utilitarios = new javax.swing.JMenu();
+        sm_rusuarios = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -97,21 +108,84 @@ public class Menu extends javax.swing.JFrame {
         });
         m_tablas.add(sm_rclientes);
 
+        sm_restados.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_restados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user_state.png"))); // NOI18N
+        sm_restados.setText("Estados");
+        sm_restados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_restadosActionPerformed(evt);
+            }
+        });
+        m_tablas.add(sm_restados);
+
+        sm_rtipos.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_rtipos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/type_of_user.png"))); // NOI18N
+        sm_rtipos.setText("Tipos");
+        sm_rtipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_rtiposActionPerformed(evt);
+            }
+        });
+        m_tablas.add(sm_rtipos);
+
         menu.add(m_tablas);
 
         m_movimientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/movements.png"))); // NOI18N
         m_movimientos.setText("Movimientos");
         m_movimientos.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        sm_rcobros.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_rcobros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/payment.png"))); // NOI18N
+        sm_rcobros.setText("Cobros");
+        sm_rcobros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_rcobrosActionPerformed(evt);
+            }
+        });
+        m_movimientos.add(sm_rcobros);
+
         menu.add(m_movimientos);
 
         m_reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/reports.png"))); // NOI18N
         m_reportes.setText("Reportes");
         m_reportes.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        sm_clientes.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/customer_report.png"))); // NOI18N
+        sm_clientes.setText("Clientes");
+        m_reportes.add(sm_clientes);
+
+        sm_record.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_record.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/debtors_and_non-debtors.png"))); // NOI18N
+        sm_record.setText("Récord de Clientes");
+        sm_record.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_recordActionPerformed(evt);
+            }
+        });
+        m_reportes.add(sm_record);
+
+        sm_infoc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_infoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/connection_info.png"))); // NOI18N
+        sm_infoc.setText("Info. de Conexión");
+        m_reportes.add(sm_infoc);
+
         menu.add(m_reportes);
 
         m_utilitarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/settings.png"))); // NOI18N
         m_utilitarios.setText("Utilitarios");
         m_utilitarios.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+
+        sm_rusuarios.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_rusuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user_info.png"))); // NOI18N
+        sm_rusuarios.setText("Usuarios");
+        sm_rusuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_rusuariosActionPerformed(evt);
+            }
+        });
+        m_utilitarios.add(sm_rusuarios);
+
         menu.add(m_utilitarios);
 
         setJMenuBar(menu);
@@ -131,11 +205,62 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sm_rclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rclientesActionPerformed
-        RegistroClientes rc=new RegistroClientes();
+        RegistroClientes rc = new RegistroClientes();
         escritorio.add(rc);
-        //rc.setLocation(CENTER_ALIGNMENT);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension rc_size = rc.getSize();
+        rc.setLocation((escritorio_size.width - rc_size.width) / 2, (escritorio_size.height - rc_size.height) / 2);
         rc.show();
     }//GEN-LAST:event_sm_rclientesActionPerformed
+
+    private void sm_rusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rusuariosActionPerformed
+        ListarUsuarios lu = new ListarUsuarios();
+        escritorio.add(lu);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension lu_size = lu.getSize();
+        lu.setLocation((escritorio_size.width - lu_size.width) / 2, (escritorio_size.height - lu_size.height) / 2);
+        lu.show();
+    }//GEN-LAST:event_sm_rusuariosActionPerformed
+
+    private void sm_restadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_restadosActionPerformed
+        EstadoCliente ec = new EstadoCliente();
+        escritorio.add(ec);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension ec_size = ec.getSize();
+        ec.setLocation((escritorio_size.width - ec_size.width) / 2, (escritorio_size.height - ec_size.height) / 2);
+        ec.show();
+    }//GEN-LAST:event_sm_restadosActionPerformed
+
+    private void sm_rtiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rtiposActionPerformed
+        TipoUsuario tu = new TipoUsuario();
+        escritorio.add(tu);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension tu_size = tu.getSize();
+        tu.setLocation((escritorio_size.width - tu_size.width) / 2, (escritorio_size.height - tu_size.height) / 2);
+        tu.show();
+    }//GEN-LAST:event_sm_rtiposActionPerformed
+
+    private void sm_rcobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rcobrosActionPerformed
+        Cobros c = new Cobros();
+        escritorio.add(c);
+        try {
+            c.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        c.show();
+    }//GEN-LAST:event_sm_rcobrosActionPerformed
+
+    private void sm_recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_recordActionPerformed
+        RecordCliente rc = new RecordCliente();
+        escritorio.add(rc);
+        try {
+            rc.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        rc.show();
+    }//GEN-LAST:event_sm_recordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,18 +306,25 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu m_tablas;
     private javax.swing.JMenu m_utilitarios;
     public static javax.swing.JMenuBar menu;
+    private javax.swing.JMenuItem sm_clientes;
+    private javax.swing.JMenuItem sm_infoc;
     private javax.swing.JMenuItem sm_rclientes;
+    private javax.swing.JMenuItem sm_rcobros;
+    private javax.swing.JMenuItem sm_record;
+    private javax.swing.JMenuItem sm_restados;
+    private javax.swing.JMenuItem sm_rtipos;
+    private javax.swing.JMenuItem sm_rusuarios;
     // End of variables declaration//GEN-END:variables
 
-     private void login_cargado(){
-        Login cargar_login=new Login();
+    private void login_cargado() {
+        Login cargar_login = new Login();
         escritorio.add(cargar_login);
-        Dimension escritorio_size=escritorio.getSize();
-        Dimension login_size=cargar_login.getSize();
-        cargar_login.setLocation((escritorio_size.width+login_size.width)/2, (escritorio_size.height+login_size.height)/7);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension login_size = cargar_login.getSize();
+        cargar_login.setLocation((escritorio_size.width + login_size.width) / 2, (escritorio_size.height + login_size.height) / 7);
         cargar_login.show();
     }
-     
+
     public class hilo implements Runnable {
 
         @Override
@@ -208,11 +340,5 @@ public class Menu extends javax.swing.JFrame {
 
         }
 
-    }
-    
-    @Override 
-    public Image getIconImage() {
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
-        return retValue;
     }
 }

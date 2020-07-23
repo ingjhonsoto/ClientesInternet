@@ -10,6 +10,7 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import metodos.Placeholder;
 
 /**
  *
@@ -20,13 +21,17 @@ public class Login extends javax.swing.JInternalFrame {
     /**
      * Creates new form Login
      */
+    int count=0;
+    Placeholder placeholder;
+    
     public Login() {
         initComponents();
         //mostrar imagen de fondo
         ImageIcon fondo=new ImageIcon("src/recursos/fondo_login.jpg");
         Icon icon=new ImageIcon(fondo.getImage().getScaledInstance(label_fondo.getWidth(), label_fondo.getHeight(), Image.SCALE_DEFAULT));
         label_fondo.setIcon(icon);
-        
+        placeholder=new Placeholder("Nombre de Usuario", txt_user);
+        placeholder=new Placeholder("Ingrese Contraseña", txt_password);
     }
 
     /**
@@ -48,6 +53,7 @@ public class Login extends javax.swing.JInternalFrame {
         label_fondo = new javax.swing.JLabel();
 
         setTitle("Login");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
         setPreferredSize(new java.awt.Dimension(350, 430));
         getContentPane().setLayout(null);
 
@@ -62,7 +68,7 @@ public class Login extends javax.swing.JInternalFrame {
 
         txt_user.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         getContentPane().add(txt_user);
-        txt_user.setBounds(127, 143, 167, 23);
+        txt_user.setBounds(127, 143, 167, 30);
 
         label_password.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/password.png"))); // NOI18N
         getContentPane().add(label_password);
@@ -75,7 +81,7 @@ public class Login extends javax.swing.JInternalFrame {
             }
         });
         getContentPane().add(txt_password);
-        txt_password.setBounds(130, 210, 167, 23);
+        txt_password.setBounds(130, 210, 167, 30);
 
         btn_acceder.setBackground(new java.awt.Color(102, 255, 102));
         btn_acceder.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -110,9 +116,7 @@ public class Login extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_accederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_accederActionPerformed
-        JOptionPane.showMessageDialog(this, "BIENVENIDO USUARIO");
-        this.dispose();
-        interfaces.Menu.menu.setVisible(true);
+        acceder();
     }//GEN-LAST:event_btn_accederActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
@@ -121,8 +125,11 @@ public class Login extends javax.swing.JInternalFrame {
 
     private void txt_passwordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passwordKeyReleased
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(txt_user.getText().length()>0 && txt_password.getText().length()>0){
+            count++;
+            if(txt_user.getText().length()>0 && txt_password.getText().length()>0 && count<2){
                 verifica();
+            }else{
+                acceder();
             }
         }
     }//GEN-LAST:event_txt_passwordKeyReleased
@@ -149,5 +156,10 @@ public class Login extends javax.swing.JInternalFrame {
             txt_password.setText("");
             txt_user.requestFocus();
         }
+    }
+    
+    private void acceder(){
+        this.dispose();
+        interfaces.Menu.menu.setVisible(true);
     }
 }

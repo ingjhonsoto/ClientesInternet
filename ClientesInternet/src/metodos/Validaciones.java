@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class Validaciones {
     
     public void validacion_letras(java.awt.event.KeyEvent evento){
-       if(!(evento.getKeyChar()>=65 && evento.getKeyChar()<=90 
+       if(!(evento.getKeyChar()==32 || evento.getKeyChar()>=65 && evento.getKeyChar()<=90 
                || evento.getKeyChar()>=97 && evento.getKeyChar()<=122 
                || evento.getKeyChar()==241)){
            Toolkit.getDefaultToolkit().beep();
