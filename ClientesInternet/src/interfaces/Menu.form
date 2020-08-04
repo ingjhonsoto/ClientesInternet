@@ -121,6 +121,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sm_clientesActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="sm_record">
               <Properties>
@@ -146,6 +149,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Info. de Conexi&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sm_infocActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

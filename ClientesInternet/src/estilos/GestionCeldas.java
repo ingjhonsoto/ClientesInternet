@@ -69,13 +69,6 @@ public class GestionCeldas extends DefaultTableCellRenderer {
         }
 
         if (tipo.equals("chk_box")) {
-            //if (focused) {
-              //  colorFondo = colorFondoSeleccion;
-            //} else {
-              //  colorFondo = colorFondoPorDefecto;
-            //}
-            //this.setHorizontalAlignment(JLabel.LEFT);
-            //this.setBackground((selected) ? colorFondo : Color.WHITE);
             this.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 1, new java.awt.Color(145, 152, 156)));
             return this;
         }

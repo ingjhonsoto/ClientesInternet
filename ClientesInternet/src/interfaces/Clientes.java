@@ -18,29 +18,29 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import metodos.Placeholder;
-import objetos.Record_cliente;
+import objetos.Datos_Clientes;
 
 /**
  *
  * @author Cristhian
  */
-public class RecordCliente extends javax.swing.JInternalFrame {
+public class Clientes extends javax.swing.JInternalFrame {
 
-    ModeloTablaLU dtm_record;
+    ModeloTablaLU dtm_cliente;
     Placeholder placeholder;
-    ArrayList<Record_cliente> listar;
-    Record_cliente additem;
+    ArrayList<Datos_Clientes> listac;
+    Datos_Clientes additem;
     TableRowSorter trs;
     RowSorter<TableModel> sorter;
     int colum = 0;
 
-    public RecordCliente() {
+    public Clientes() {
         initComponents();
-        dtm_record = new ModeloTablaLU();
-        listar = new ArrayList<>();
-        sorter = new TableRowSorter<TableModel>(dtm_record);
+        dtm_cliente = new ModeloTablaLU();
+        listac = new ArrayList<>();
+        sorter = new TableRowSorter<TableModel>(dtm_cliente);
         cargar_datos();
-        tbl_datos.setModel(dtm_record);
+        tbl_datos.setModel(dtm_cliente);
         tbl_datos.setRowSorter(sorter);
         placeholder = new Placeholder("Ingrese el apellido para iniciar el filtrado", txt_buscar);
         tabla_cargada();
@@ -66,8 +66,8 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Recòrd de Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tbl_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,7 +96,7 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         });
 
         cb_orden.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        cb_orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "APELLIDOS", "NOMBRES", "DEUDA", "RÈCORD" }));
+        cb_orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "DNI", "APELLIDOS", "NOMBRES", "DIRECCIÓN ", "DISPOSITIVOS", "FECHA DE CONTRATO" }));
         cb_orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_ordenItemStateChanged(evt);
@@ -151,10 +151,10 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         txt_buscar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txt_buscar.getText(), 1));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txt_buscar.getText(), 2));
             }
         });
-        trs = new TableRowSorter(dtm_record);
+        trs = new TableRowSorter(dtm_cliente);
         tbl_datos.setRowSorter(trs);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
@@ -162,8 +162,8 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             colum = cb_orden.getSelectedIndex();
             if (colum >= 0) {
-                if (colum > 2) {
-                    tbl_datos.getRowSorter().toggleSortOrder(colum+1);
+                if (colum > 4) {
+                    tbl_datos.getRowSorter().toggleSortOrder(colum+3);
                 } else {
                     tbl_datos.getRowSorter().toggleSortOrder(colum);
                 }
@@ -182,36 +182,44 @@ public class RecordCliente extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cabecera() {
-        dtm_record.addColumn("ID");
-        dtm_record.addColumn("APELLIDOS");
-        dtm_record.addColumn("NOMBRES");
-        dtm_record.addColumn("ESTADO");
-        dtm_record.addColumn("DEUDA");
-        dtm_record.addColumn("RECÒRD");
+        dtm_cliente.addColumn("ID");
+        dtm_cliente.addColumn("DNI");
+        dtm_cliente.addColumn("APELLIDOS");
+        dtm_cliente.addColumn("NOMBRES");
+        dtm_cliente.addColumn("DIRECCIÓN");
+        dtm_cliente.addColumn("CELULAR");
+        dtm_cliente.addColumn("ESTADO");
+        dtm_cliente.addColumn("IP");
+        dtm_cliente.addColumn("DISPOSITIVOS");
+        dtm_cliente.addColumn("FECHA DE CONTRATO");
     }
 
     private void cargar_datos() {
-        additem = new Record_cliente("001", "Soto Navarro", "Cristhian Arturo", "Activo", "0", "Buen Cliente");
-        listar.add(additem);
-        additem = new Record_cliente("002", "Zoto Navarro", "Angie Carolina", "Activo", "100", "Moroso");
-        listar.add(additem);
-        additem = new Record_cliente("003", "Navarro Castro", "Maria Caroilina", "Inactivo", "0", "Buen Cliente");
-        listar.add(additem);
-        additem = new Record_cliente("004", "Alvarez Costa", "Jhon Alex", "Activo", "50", "Moroso");
-        listar.add(additem);
+        additem = new Datos_Clientes("001", "74803992", "Soto Navarro", "Cristhian Arturo", "Nomara", "976452348","Activo","12.168.6.104","5","12/12/12");
+        listac.add(additem);
+        additem = new Datos_Clientes("002", "80334200", "Navarro Castro", "Maria Carolina", "Fatima", "966612995","Inactivo","12.168.6.100","1","14/05/12");
+        listac.add(additem);
+        additem = new Datos_Clientes("003", "03478775", "Soto Navarro", "Jesus Ricardo", "Nomara", "976452348","Activo","12.168.6.10","3","10/10/12");
+        listac.add(additem);
+        additem = new Datos_Clientes("004", "74803993", "Soto Navarro", "Jhon Alex", "Miraflores", "950234204","Suspendido","12.168.6.90","6","14/04/12");
+        listac.add(additem);
     }
 
     private void llenar_celdas() {
         //copiar datos de la lista a la tabla
-        String data[] = new String[6];
-        for (int i = 0; i < listar.size(); i++) {
-            data[0] = listar.get(i).getId();
-            data[1] = listar.get(i).getApellidos();
-            data[2] = listar.get(i).getNombres();
-            data[3] = listar.get(i).getEstado();
-            data[4] = listar.get(i).getDeuda();
-            data[5] = listar.get(i).getRecord();
-            dtm_record.addRow(data);
+        String data[] = new String[10];
+        for (int i = 0; i < listac.size(); i++) {
+            data[0] = listac.get(i).getId();
+            data[1] = listac.get(i).getDni();
+            data[2] = listac.get(i).getApellidos();
+            data[3] = listac.get(i).getNombres();
+            data[4] = listac.get(i).getDireccion();
+            data[5] = listac.get(i).getCelular();
+            data[6] = listac.get(i).getEstado();
+            data[7] = listac.get(i).getIp();
+            data[8] = listac.get(i).getDispositivos();
+            data[9] = listac.get(i).getFecha_contrato();
+            dtm_cliente.addRow(data);
         }
     }
 
@@ -222,22 +230,25 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         llenar_celdas();
         //estilo de celda
         tbl_datos.getColumnModel().getColumn(0).setCellRenderer(new GestionCeldas("numerico"));
-        tbl_datos.getColumnModel().getColumn(1).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(1).setCellRenderer(new GestionCeldas("numerico"));
         tbl_datos.getColumnModel().getColumn(2).setCellRenderer(new GestionCeldas("texto"));
         tbl_datos.getColumnModel().getColumn(3).setCellRenderer(new GestionCeldas("texto"));
-        tbl_datos.getColumnModel().getColumn(4).setCellRenderer(new GestionCeldas("numerico"));
-        tbl_datos.getColumnModel().getColumn(5).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(4).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(5).setCellRenderer(new GestionCeldas("numerico"));
+        tbl_datos.getColumnModel().getColumn(6).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(7).setCellRenderer(new GestionCeldas("numerico"));
+        tbl_datos.getColumnModel().getColumn(8).setCellRenderer(new GestionCeldas("numerico"));
+        tbl_datos.getColumnModel().getColumn(9).setCellRenderer(new GestionCeldas("numerico"));
         //reordenar la tabla
         tbl_datos.getTableHeader().setReorderingAllowed(false);
         //alto de las celdas
         tbl_datos.setRowHeight(30);
         //Ancho de las celdas
         tbl_datos.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tbl_datos.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbl_datos.getColumnModel().getColumn(2).setPreferredWidth(200);
         tbl_datos.getColumnModel().getColumn(3).setPreferredWidth(200);
-        tbl_datos.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tbl_datos.getColumnModel().getColumn(5).setPreferredWidth(250);
+        tbl_datos.getColumnModel().getColumn(7).setPreferredWidth(150);
+        tbl_datos.getColumnModel().getColumn(9).setPreferredWidth(150);
         //estilos de cabecera
         JTableHeader jTableHeader = tbl_datos.getTableHeader();
         jTableHeader.setDefaultRenderer(new GestionEncabezadoTabla());

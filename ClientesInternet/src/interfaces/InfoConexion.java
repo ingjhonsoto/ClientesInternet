@@ -8,39 +8,46 @@ package interfaces;
 import estilos.GestionCeldas;
 import estilos.GestionEncabezadoTabla;
 import estilos.ModeloTablaLU;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
+import javax.swing.SwingUtilities;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import metodos.Placeholder;
-import objetos.Record_cliente;
+import objetos.Info_Conexion;
 
 /**
  *
  * @author Cristhian
  */
-public class RecordCliente extends javax.swing.JInternalFrame {
+public class InfoConexion extends javax.swing.JInternalFrame {
 
-    ModeloTablaLU dtm_record;
+    ModeloTablaLU dtm_infoc;
     Placeholder placeholder;
-    ArrayList<Record_cliente> listar;
-    Record_cliente additem;
+    ArrayList<Info_Conexion> listai;
+    Info_Conexion additem;
     TableRowSorter trs;
     RowSorter<TableModel> sorter;
-    int colum = 0;
+    int colum = 0, rowNumber = 0;
 
-    public RecordCliente() {
+    public InfoConexion() {
         initComponents();
-        dtm_record = new ModeloTablaLU();
-        listar = new ArrayList<>();
-        sorter = new TableRowSorter<TableModel>(dtm_record);
+        dtm_infoc = new ModeloTablaLU();
+        listai = new ArrayList<>();
+        sorter = new TableRowSorter<TableModel>(dtm_infoc);
         cargar_datos();
-        tbl_datos.setModel(dtm_record);
+        tbl_datos.setModel(dtm_infoc);
         tbl_datos.setRowSorter(sorter);
         placeholder = new Placeholder("Ingrese el apellido para iniciar el filtrado", txt_buscar);
         tabla_cargada();
@@ -64,10 +71,11 @@ public class RecordCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Recòrd de Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(0, 204, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Info. de Conexión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tbl_datos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,6 +85,11 @@ public class RecordCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_datos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_datosMouseClicked(evt);
+            }
+        });
         tbl_datos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tbl_datosKeyTyped(evt);
@@ -96,7 +109,7 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         });
 
         cb_orden.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        cb_orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "APELLIDOS", "NOMBRES", "DEUDA", "RÈCORD" }));
+        cb_orden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "APELLIDOS", "NOMBRES", "TIPO DE SERVICIO", "DISPOSITIVOS", "FECHA DE CONTRATO" }));
         cb_orden.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_ordenItemStateChanged(evt);
@@ -151,10 +164,10 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         txt_buscar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txt_buscar.getText(), 1));
+                trs.setRowFilter(RowFilter.regexFilter("(?i)" + txt_buscar.getText(), 2));
             }
         });
-        trs = new TableRowSorter(dtm_record);
+        trs = new TableRowSorter(dtm_infoc);
         tbl_datos.setRowSorter(trs);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
@@ -163,13 +176,21 @@ public class RecordCliente extends javax.swing.JInternalFrame {
             colum = cb_orden.getSelectedIndex();
             if (colum >= 0) {
                 if (colum > 2) {
-                    tbl_datos.getRowSorter().toggleSortOrder(colum+1);
+                    tbl_datos.getRowSorter().toggleSortOrder(colum + 1);
                 } else {
                     tbl_datos.getRowSorter().toggleSortOrder(colum);
                 }
             }
         }
     }//GEN-LAST:event_cb_ordenItemStateChanged
+
+    private void tbl_datosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_datosMouseClicked
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            Point p = evt.getPoint();
+            rowNumber = tbl_datos.rowAtPoint(p);
+            popupTable();
+        }
+    }//GEN-LAST:event_tbl_datosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -182,36 +203,37 @@ public class RecordCliente extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cabecera() {
-        dtm_record.addColumn("ID");
-        dtm_record.addColumn("APELLIDOS");
-        dtm_record.addColumn("NOMBRES");
-        dtm_record.addColumn("ESTADO");
-        dtm_record.addColumn("DEUDA");
-        dtm_record.addColumn("RECÒRD");
+        dtm_infoc.addColumn("ID");
+        dtm_infoc.addColumn("APELLIDOS");
+        dtm_infoc.addColumn("NOMBRES");
+        dtm_infoc.addColumn("IP CLIENTE");
+        dtm_infoc.addColumn("TIPO DE SERVICIO");
+        dtm_infoc.addColumn("CANT. DISPOSITIVOS");
+        dtm_infoc.addColumn("FECHA DE CONTRATO");
     }
 
     private void cargar_datos() {
-        additem = new Record_cliente("001", "Soto Navarro", "Cristhian Arturo", "Activo", "0", "Buen Cliente");
-        listar.add(additem);
-        additem = new Record_cliente("002", "Zoto Navarro", "Angie Carolina", "Activo", "100", "Moroso");
-        listar.add(additem);
-        additem = new Record_cliente("003", "Navarro Castro", "Maria Caroilina", "Inactivo", "0", "Buen Cliente");
-        listar.add(additem);
-        additem = new Record_cliente("004", "Alvarez Costa", "Jhon Alex", "Activo", "50", "Moroso");
-        listar.add(additem);
+        //String ip_dispo = "<html>192.168.6.11<br>192.168.6.12<br>192.168.6.13</html>";
+        additem = new Info_Conexion("001", "Soto Navarro", "Cristhian Arturo", "192.168.6.10", "Wifi", "3", "12/12/12");
+        listai.add(additem);
+        additem = new Info_Conexion("002", "Castro Alvarez", "Zurita Mantil", "192.168.6.15", "Cableado", "2", "13/12/12");
+        listai.add(additem);
+        additem = new Info_Conexion("003", "Alvarado Farias", "Angie Carolina", "192.168.6.18", "Wifi", "2", "11/12/12");
+        listai.add(additem);
     }
 
     private void llenar_celdas() {
         //copiar datos de la lista a la tabla
-        String data[] = new String[6];
-        for (int i = 0; i < listar.size(); i++) {
-            data[0] = listar.get(i).getId();
-            data[1] = listar.get(i).getApellidos();
-            data[2] = listar.get(i).getNombres();
-            data[3] = listar.get(i).getEstado();
-            data[4] = listar.get(i).getDeuda();
-            data[5] = listar.get(i).getRecord();
-            dtm_record.addRow(data);
+        String data[] = new String[7];
+        for (int i = 0; i < listai.size(); i++) {
+            data[0] = listai.get(i).getId();
+            data[1] = listai.get(i).getApellidos();
+            data[2] = listai.get(i).getNombres();
+            data[3] = listai.get(i).getIp_cliente();
+            data[4] = listai.get(i).getIp_dispositivos();
+            data[5] = listai.get(i).getCant_dispositivos();
+            data[6] = listai.get(i).getFecha_contrato();
+            dtm_infoc.addRow(data);
         }
     }
 
@@ -224,23 +246,42 @@ public class RecordCliente extends javax.swing.JInternalFrame {
         tbl_datos.getColumnModel().getColumn(0).setCellRenderer(new GestionCeldas("numerico"));
         tbl_datos.getColumnModel().getColumn(1).setCellRenderer(new GestionCeldas("texto"));
         tbl_datos.getColumnModel().getColumn(2).setCellRenderer(new GestionCeldas("texto"));
-        tbl_datos.getColumnModel().getColumn(3).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(3).setCellRenderer(new GestionCeldas("numerico"));
         tbl_datos.getColumnModel().getColumn(4).setCellRenderer(new GestionCeldas("numerico"));
-        tbl_datos.getColumnModel().getColumn(5).setCellRenderer(new GestionCeldas("texto"));
+        tbl_datos.getColumnModel().getColumn(5).setCellRenderer(new GestionCeldas("numerico"));
+        tbl_datos.getColumnModel().getColumn(6).setCellRenderer(new GestionCeldas("numerico"));
         //reordenar la tabla
         tbl_datos.getTableHeader().setReorderingAllowed(false);
         //alto de las celdas
         tbl_datos.setRowHeight(30);
+//        tbl_datos.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
         //Ancho de las celdas
-        tbl_datos.getColumnModel().getColumn(0).setPreferredWidth(100);
-        tbl_datos.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbl_datos.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbl_datos.getColumnModel().getColumn(3).setPreferredWidth(200);
-        tbl_datos.getColumnModel().getColumn(4).setPreferredWidth(150);
-        tbl_datos.getColumnModel().getColumn(5).setPreferredWidth(250);
+        tbl_datos.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tbl_datos.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tbl_datos.getColumnModel().getColumn(2).setPreferredWidth(150);
+//        tbl_datos.getColumnModel().getColumn(3).setPreferredWidth(150);
+//        tbl_datos.getColumnModel().getColumn(4).setPreferredWidth(150);
+//        tbl_datos.getColumnModel().getColumn(5).setPreferredWidth(150);
+//        tbl_datos.getColumnModel().getColumn(6).setPreferredWidth(150);
         //estilos de cabecera
         JTableHeader jTableHeader = tbl_datos.getTableHeader();
         jTableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
         tbl_datos.setTableHeader(jTableHeader);
+    }
+
+    private void popupTable() {
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem menuItem = new JMenuItem("Más Detalles", new ImageIcon(getClass().getResource("/recursos/details.png")));
+
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //administrar_usuario();
+                //AdministrarUsuario.cb_estado.setVisible(true);
+                //enviar_datos();
+            }
+        });
+        popupMenu.add(menuItem);
+        tbl_datos.setComponentPopupMenu(popupMenu);
     }
 }
