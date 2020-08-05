@@ -4,8 +4,10 @@
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
+    <Property name="maximizable" type="boolean" value="true"/>
+    <Property name="title" type="java.lang.String" value="Cobros"/>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/recursos/icono.png"/>
+      <Image iconType="3" name="/recursos/payment.png"/>
     </Property>
   </Properties>
   <SyntheticProperties>

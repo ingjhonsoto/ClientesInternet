@@ -9,12 +9,17 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -26,11 +31,12 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    boolean estado1 = true, estado2 = true, estado3 = true, estado4 = true, estado5 = true, estado6 = true, estado7 = true, estado8 = true;
+    boolean bandera;
 
     public Menu() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        cerrar();
         new Thread(new hilo()).start();
         Image icon = new ImageIcon(getClass().getResource("/recursos/icono.png")).getImage();
         setIconImage(icon);
@@ -91,6 +97,12 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        menu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuMouseClicked(evt);
+            }
+        });
+
         m_modulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/modules.png"))); // NOI18N
         m_modulos.setText("Modulos");
         m_modulos.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -103,6 +115,11 @@ public class Menu extends javax.swing.JFrame {
         sm_rclientes.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         sm_rclientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/register_customer.png"))); // NOI18N
         sm_rclientes.setText("Registro de Clientes");
+        sm_rclientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sm_rclientesMouseClicked(evt);
+            }
+        });
         sm_rclientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sm_rclientesActionPerformed(evt);
@@ -218,66 +235,64 @@ public class Menu extends javax.swing.JFrame {
 
     private void sm_rclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rclientesActionPerformed
         RegistroClientes rc = new RegistroClientes();
-        if (rc.isShowing() == estado1) {
-            System.err.println("ya esta abierta");
-           
-        } else {
+        bandera = checkInternalFrame(rc.getTitle());
+        if (bandera == true) {
             escritorio.add(rc);
             Dimension escritorio_size = escritorio.getSize();
             Dimension rc_size = rc.getSize();
             rc.setLocation((escritorio_size.width - rc_size.width) / 2, (escritorio_size.height - rc_size.height) / 2);
             rc.show();
-            estado1 = false;
+        } else {
+            //System.err.println("el formulario esta abierto");
         }
     }//GEN-LAST:event_sm_rclientesActionPerformed
 
     private void sm_rusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rusuariosActionPerformed
         ListarUsuarios lu = new ListarUsuarios();
-        if (lu.isShowing() == estado2) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(lu.getTitle());
+        if (bandera == true) {
             escritorio.add(lu);
             Dimension escritorio_size = escritorio.getSize();
             Dimension lu_size = lu.getSize();
             lu.setLocation((escritorio_size.width - lu_size.width) / 2, (escritorio_size.height - lu_size.height) / 2);
             lu.show();
-            estado2 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_rusuariosActionPerformed
 
     private void sm_restadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_restadosActionPerformed
         EstadoCliente ec = new EstadoCliente();
-        if (ec.isShowing() == estado3) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(ec.getTitle());
+        if (bandera == true) {
             escritorio.add(ec);
             Dimension escritorio_size = escritorio.getSize();
             Dimension ec_size = ec.getSize();
             ec.setLocation((escritorio_size.width - ec_size.width) / 2, (escritorio_size.height - ec_size.height) / 2);
             ec.show();
-            estado3 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_restadosActionPerformed
 
     private void sm_rtiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rtiposActionPerformed
         TipoUsuario tu = new TipoUsuario();
-        if (tu.isShowing() == estado4) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(tu.getTitle());
+        if (bandera == true) {
             escritorio.add(tu);
             Dimension escritorio_size = escritorio.getSize();
             Dimension tu_size = tu.getSize();
             tu.setLocation((escritorio_size.width - tu_size.width) / 2, (escritorio_size.height - tu_size.height) / 2);
             tu.show();
-            estado4 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_rtiposActionPerformed
 
     private void sm_rcobrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_rcobrosActionPerformed
         Cobros c = new Cobros();
-        if (c.isShowing() == estado5) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(c.getTitle());
+        if (bandera == true) {
             escritorio.add(c);
             try {
                 c.setMaximum(true);
@@ -285,15 +300,15 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             c.show();
-            estado5 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_rcobrosActionPerformed
 
     private void sm_recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_recordActionPerformed
         RecordCliente rc = new RecordCliente();
-        if (rc.isShowing() == estado6) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(rc.getTitle());
+        if (bandera == true) {
             escritorio.add(rc);
             try {
                 rc.setMaximum(true);
@@ -301,15 +316,15 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             rc.show();
-            estado6 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_recordActionPerformed
 
     private void sm_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_clientesActionPerformed
         Clientes c = new Clientes();
-        if (c.isShowing() == estado7) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(c.getTitle());
+        if (bandera == true) {
             escritorio.add(c);
             try {
                 c.setMaximum(true);
@@ -317,15 +332,15 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             c.show();
-            estado7 = false;
+        } else {
+
         }
     }//GEN-LAST:event_sm_clientesActionPerformed
 
     private void sm_infocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_infocActionPerformed
         InfoConexion ic = new InfoConexion();
-        if (ic.isShowing() == estado8) {
-            System.err.println("ya esta abierta 1");
-        } else {
+        bandera = checkInternalFrame(ic.getTitle());
+        if (bandera == true) {
             escritorio.add(ic);
             try {
                 ic.setMaximum(true);
@@ -333,9 +348,18 @@ public class Menu extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
             ic.show();
-            estado8 = false;
+        } else {
+            
         }
     }//GEN-LAST:event_sm_infocActionPerformed
+
+    private void menuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseClicked
+
+    }//GEN-LAST:event_menuMouseClicked
+
+    private void sm_rclientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sm_rclientesMouseClicked
+
+    }//GEN-LAST:event_sm_rclientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -415,5 +439,40 @@ public class Menu extends javax.swing.JFrame {
 
         }
 
+    }
+
+    private boolean checkInternalFrame(Object obj) {
+        JInternalFrame[] activos = Menu.escritorio.getAllFrames();
+        boolean cerrado = true;
+        int i = 0;
+        while (i < activos.length && cerrado) {
+            if (activos[i].getTitle() == obj) {
+                cerrado = false;
+            }
+            i++;
+        }
+        return cerrado;
+    }
+
+    public void cerrar() {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent we) {
+                    confirmarSalida();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void confirmarSalida() {
+        int valor = JOptionPane.showConfirmDialog(this, "¿Estás seguro de cerrar el Sistema?", "Advertencia...", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (valor == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Gracias por su visita, Hasta pronto", "Cerrando Sistema", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 }

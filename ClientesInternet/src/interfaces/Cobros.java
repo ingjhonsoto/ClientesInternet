@@ -8,17 +8,13 @@ package interfaces;
 import estilos.EstiloEncabezadoTCobro;
 import estilos.GestionCeldas;
 import estilos.ModeloTabla;
-import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import metodos.Placeholder;
 import objetos.Cobros_clientes;
@@ -65,7 +61,9 @@ public final class Cobros extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setMaximizable(true);
+        setTitle("Cobros");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/payment.png"))); // NOI18N
 
         label_title.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

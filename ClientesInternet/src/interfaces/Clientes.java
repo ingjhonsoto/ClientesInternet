@@ -64,7 +64,9 @@ public class Clientes extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setMaximizable(true);
+        setTitle("Clientes");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/customer_report.png"))); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Clientes", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N

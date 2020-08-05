@@ -8,6 +8,8 @@ package interfaces;
 import estilos.GestionCeldas;
 import estilos.GestionEncabezadoTabla;
 import estilos.ModeloTablaLU;
+import static interfaces.Menu.escritorio;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,7 +74,8 @@ public class InfoConexion extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setTitle("Info. Conexion");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/connection_info.png"))); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(255, 255, 255)), "Info. de Conexión", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -276,12 +279,20 @@ public class InfoConexion extends javax.swing.JInternalFrame {
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //administrar_usuario();
-                //AdministrarUsuario.cb_estado.setVisible(true);
-                //enviar_datos();
+                detalles_conexion();
             }
         });
         popupMenu.add(menuItem);
         tbl_datos.setComponentPopupMenu(popupMenu);
+    }
+
+    private void detalles_conexion() {
+        DetallesConexion dc = new DetallesConexion();
+        escritorio.add(dc);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension dc_size = dc.getSize();
+        dc.setLocation((escritorio_size.width - dc_size.width) / 2, (escritorio_size.height - dc_size.height) / 2);
+        dc.show();
+        dispose();
     }
 }

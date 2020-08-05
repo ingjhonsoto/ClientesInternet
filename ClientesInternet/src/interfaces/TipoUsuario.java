@@ -36,10 +36,10 @@ public class TipoUsuario extends javax.swing.JInternalFrame{
         initComponents();
         model_table = new DefaultTableModel();
         list_tipou = new ArrayList<>();  
+        cargar_datos();
         table_tipos.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
         table_tipos.setModel(model_table);
-        llenar_cabecera();
-        llenar_tabla();
+        tabla_cargada();
         popupTable();
     }
 
@@ -58,7 +58,8 @@ public class TipoUsuario extends javax.swing.JInternalFrame{
 
         setClosable(true);
         setIconifiable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setTitle("Tipos de Usuario");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/type_of_user.png"))); // NOI18N
 
         label_title.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -106,13 +107,10 @@ public class TipoUsuario extends javax.swing.JInternalFrame{
     private javax.swing.JTable table_tipos;
     // End of variables declaration//GEN-END:variables
 
-    private void llenar_cabecera() {
+    private void cabecera() {
         model_table.addColumn("ID");
         model_table.addColumn("DESCRIPCIÓN");
         model_table.addColumn("FECHA");
-        JTableHeader jTableHeader=table_tipos.getTableHeader();
-        jTableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
-        table_tipos.setTableHeader(jTableHeader);
     }
 
     private void cargar_datos() {
@@ -122,19 +120,19 @@ public class TipoUsuario extends javax.swing.JInternalFrame{
         list_tipou.add(add_tipo);
     }
 
-    private void llenar_tabla() {
+    private void llenar_celdas() {
         String data[] = new String[3];
-        cargar_datos();
         for (int i = 0; i < list_tipou.size(); i++) {
             data[0] = list_tipou.get(i).getId_tipo();
             data[1] = list_tipou.get(i).getDescripcion();
             data[2] = list_tipou.get(i).getFecha_creacion();
             model_table.addRow(data);
         }
-        estilo_celda();
     }
     
-    private void estilo_celda(){
+    private void tabla_cargada(){
+        cabecera();
+        llenar_celdas();
         table_tipos.getColumnModel().getColumn(0).setCellRenderer(new GestionCeldas("texto"));
         table_tipos.getColumnModel().getColumn(1).setCellRenderer(new GestionCeldas("texto"));
         table_tipos.getColumnModel().getColumn(2).setCellRenderer(new GestionCeldas("numerico"));
@@ -147,6 +145,9 @@ public class TipoUsuario extends javax.swing.JInternalFrame{
         table_tipos.getColumnModel().getColumn(1).setPreferredWidth(170);
         table_tipos.getColumnModel().getColumn(2).setPreferredWidth(170);
         
+        JTableHeader jTableHeader=table_tipos.getTableHeader();
+        jTableHeader.setDefaultRenderer(new GestionEncabezadoTabla());
+        table_tipos.setTableHeader(jTableHeader);
     }
 
     private void popupTable(){

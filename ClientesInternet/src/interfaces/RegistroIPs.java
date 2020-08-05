@@ -56,7 +56,7 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/register_customer.png"))); // NOI18N
         setPreferredSize(new java.awt.Dimension(355, 380));
 
         label_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N

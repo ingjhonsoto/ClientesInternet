@@ -53,7 +53,7 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Registro");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/register_customer.png"))); // NOI18N
 
         label_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         label_title.setText("Reistro de Clientes");

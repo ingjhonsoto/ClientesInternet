@@ -9,7 +9,7 @@
     <Property name="closable" type="boolean" value="true"/>
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-      <Image iconType="3" name="/recursos/icono.png"/>
+      <Image iconType="3" name="/recursos/user_info.png"/>
     </Property>
   </Properties>
   <SyntheticProperties>

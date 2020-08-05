@@ -57,7 +57,7 @@ public class AdministrarUsuario extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/icono.png"))); // NOI18N
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/user_info.png"))); // NOI18N
 
         label_title.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
