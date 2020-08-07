@@ -68,6 +68,8 @@ public class Menu extends javax.swing.JFrame {
         sm_clientes = new javax.swing.JMenuItem();
         sm_record = new javax.swing.JMenuItem();
         sm_infoc = new javax.swing.JMenuItem();
+        separador = new javax.swing.JPopupMenu.Separator();
+        sm_estadisticas = new javax.swing.JMenuItem();
         m_utilitarios = new javax.swing.JMenu();
         sm_rusuarios = new javax.swing.JMenuItem();
 
@@ -198,6 +200,17 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         m_reportes.add(sm_infoc);
+        m_reportes.add(separador);
+
+        sm_estadisticas.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        sm_estadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/estadisticas.png"))); // NOI18N
+        sm_estadisticas.setText("Estadisticas");
+        sm_estadisticas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sm_estadisticasActionPerformed(evt);
+            }
+        });
+        m_reportes.add(sm_estadisticas);
 
         menu.add(m_reportes);
 
@@ -243,7 +256,7 @@ public class Menu extends javax.swing.JFrame {
             rc.setLocation((escritorio_size.width - rc_size.width) / 2, (escritorio_size.height - rc_size.height) / 2);
             rc.show();
         } else {
-            //System.err.println("el formulario esta abierto");
+            
         }
     }//GEN-LAST:event_sm_rclientesActionPerformed
 
@@ -361,6 +374,20 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sm_rclientesMouseClicked
 
+    private void sm_estadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sm_estadisticasActionPerformed
+        Estadisticas e = new Estadisticas();
+        bandera = checkInternalFrame(e.getTitle());
+        if (bandera == true) {
+            escritorio.add(e);
+            Dimension escritorio_size = escritorio.getSize();
+            Dimension e_size = e.getSize();
+            e.setLocation((escritorio_size.width - e_size.width) / 2, (escritorio_size.height - e_size.height) / 2);
+            e.show();
+        } else {
+
+        }
+    }//GEN-LAST:event_sm_estadisticasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -405,7 +432,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu m_tablas;
     private javax.swing.JMenu m_utilitarios;
     public static javax.swing.JMenuBar menu;
+    private javax.swing.JPopupMenu.Separator separador;
     private javax.swing.JMenuItem sm_clientes;
+    private javax.swing.JMenuItem sm_estadisticas;
     private javax.swing.JMenuItem sm_infoc;
     private javax.swing.JMenuItem sm_rclientes;
     private javax.swing.JMenuItem sm_rcobros;
