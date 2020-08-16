@@ -6,6 +6,8 @@
 package interfaces;
 
 import com.sun.glass.events.KeyEvent;
+import static interfaces.Menu.escritorio;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import metodos.Validaciones;
 
@@ -18,8 +20,8 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
     /**
      * Creates new form RegistroIPs
      */
-    int num=0;
-    
+    int num = 0;
+
     public RegistroIPs() {
         initComponents();
     }
@@ -52,7 +54,7 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
         txt_ip13 = new javax.swing.JTextField();
         txt_ip14 = new javax.swing.JTextField();
         txt_ip15 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btn_registrar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -213,8 +215,13 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton1.setText("Registrar");
+        btn_registrar.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btn_registrar.setText("Registrar");
+        btn_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,7 +230,7 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_registrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -312,7 +319,7 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txt_ip13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btn_registrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -321,103 +328,110 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
 
     private void txt_ip0KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip0KeyReleased
 
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(!txt_ip0.getText().isEmpty()){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!txt_ip0.getText().isEmpty()) {
                 txt_ip1.requestFocus();
-                num=Integer.valueOf(JOptionPane.showInputDialog(null,"¿Cuántos dispositivos tiene?","Verifique su Respuesta",JOptionPane.QUESTION_MESSAGE)); 
-                if (num>15) {
-                    num=Integer.valueOf(JOptionPane.showInputDialog(null,"¿Cuántos dispositivos tiene?","Verifique su Respuesta",JOptionPane.QUESTION_MESSAGE)); 
+                num = Integer.valueOf(JOptionPane.showInputDialog(null, "¿Cuántos dispositivos tiene?", "Verifique su Respuesta", JOptionPane.QUESTION_MESSAGE));
+                if (num > 15) {
+                    num = Integer.valueOf(JOptionPane.showInputDialog(null, "¿Cuántos dispositivos tiene?", "Verifique su Respuesta", JOptionPane.QUESTION_MESSAGE));
                     habilitar(num);
-                }else{
-                    habilitar(num); 
-                }  
+                } else {
+                    habilitar(num);
+                }
             }
         }
     }//GEN-LAST:event_txt_ip0KeyReleased
 
     private void txt_ip0KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip0KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip0.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip0.getText(), evt);
     }//GEN-LAST:event_txt_ip0KeyTyped
 
     private void txt_ip1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip1KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip1.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip1.getText(), evt);
     }//GEN-LAST:event_txt_ip1KeyTyped
 
     private void txt_ip4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip4KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip4.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip4.getText(), evt);
     }//GEN-LAST:event_txt_ip4KeyTyped
 
     private void txt_ip7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip7KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip7.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip7.getText(), evt);
     }//GEN-LAST:event_txt_ip7KeyTyped
 
     private void txt_ip10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip10KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip10.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip10.getText(), evt);
     }//GEN-LAST:event_txt_ip10KeyTyped
 
     private void txt_ip13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip13KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip13.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip13.getText(), evt);
     }//GEN-LAST:event_txt_ip13KeyTyped
 
     private void txt_ip2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip2KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip2.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip2.getText(), evt);
     }//GEN-LAST:event_txt_ip2KeyTyped
 
     private void txt_ip5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip5KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip5.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip5.getText(), evt);
     }//GEN-LAST:event_txt_ip5KeyTyped
 
     private void txt_ip8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip8KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip8.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip8.getText(), evt);
     }//GEN-LAST:event_txt_ip8KeyTyped
 
     private void txt_ip11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip11KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip11.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip11.getText(), evt);
     }//GEN-LAST:event_txt_ip11KeyTyped
 
     private void txt_ip14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip14KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip14.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip14.getText(), evt);
     }//GEN-LAST:event_txt_ip14KeyTyped
 
     private void txt_ip3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip3KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip3.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip3.getText(), evt);
     }//GEN-LAST:event_txt_ip3KeyTyped
 
     private void txt_ip6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip6KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip6.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip6.getText(), evt);
     }//GEN-LAST:event_txt_ip6KeyTyped
 
     private void txt_ip9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip9KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip9.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip9.getText(), evt);
     }//GEN-LAST:event_txt_ip9KeyTyped
 
     private void txt_ip12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip12KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip12.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip12.getText(), evt);
     }//GEN-LAST:event_txt_ip12KeyTyped
 
     private void txt_ip15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ip15KeyTyped
-        metodos.Validaciones val=new Validaciones();
-        val.validacion_ip(txt_ip15.getText(),evt);
+        metodos.Validaciones val = new Validaciones();
+        val.validacion_ip(txt_ip15.getText(), evt);
     }//GEN-LAST:event_txt_ip15KeyTyped
+
+    private void btn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActionPerformed
+        limpiar_cajas();
+        JOptionPane.showMessageDialog(this, "Datos guardados con éxito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+        regresar();
+    }//GEN-LAST:event_btn_registrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_registrar;
     private javax.swing.JLabel label_ip0;
     private javax.swing.JLabel label_subtitle;
     private javax.swing.JLabel label_title;
@@ -438,9 +452,9 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_ip8;
     private javax.swing.JTextField txt_ip9;
     // End of variables declaration//GEN-END:variables
-    
-    public void habilitar(int numero){
-        switch(numero){
+
+    public void habilitar(int numero) {
+        switch (numero) {
             case 1:
                 txt_ip1.setEnabled(true);
                 break;
@@ -592,5 +606,33 @@ public class RegistroIPs extends javax.swing.JInternalFrame {
                 txt_ip15.setEnabled(true);
                 break;
         }
+    }
+
+    private void limpiar_cajas() {
+        txt_ip0.setText("");
+        txt_ip1.setText("");
+        txt_ip2.setText("");
+        txt_ip3.setText("");
+        txt_ip4.setText("");
+        txt_ip5.setText("");
+        txt_ip6.setText("");
+        txt_ip7.setText("");
+        txt_ip8.setText("");
+        txt_ip9.setText("");
+        txt_ip10.setText("");
+        txt_ip11.setText("");
+        txt_ip12.setText("");
+        txt_ip13.setText("");
+        txt_ip14.setText("");
+        txt_ip15.setText("");
+    }
+
+    private void regresar() {
+        RegistroClientes rc = new RegistroClientes();
+        escritorio.add(rc);
+        Dimension escritorio_size = escritorio.getSize();
+        Dimension rc_size = rc.getSize();
+        rc.setLocation((escritorio_size.width - rc_size.width) / 2, (escritorio_size.height - rc_size.height) / 2);
+        rc.show();
     }
 }
