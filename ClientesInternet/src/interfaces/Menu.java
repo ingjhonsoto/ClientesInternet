@@ -498,7 +498,6 @@ public class Menu extends javax.swing.JFrame {
     }
 
     public void confirmarSalida() {
-        //confirmar salida del sistema
         int valor = JOptionPane.showConfirmDialog(this, "¿Estás seguro de cerrar el Sistema?", "Advertencia...", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (valor == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "Gracias por su visita, Hasta pronto", "Cerrando Sistema", JOptionPane.INFORMATION_MESSAGE);
