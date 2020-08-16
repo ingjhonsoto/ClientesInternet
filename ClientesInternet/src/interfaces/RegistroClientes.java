@@ -9,6 +9,7 @@ import com.sun.glass.events.KeyEvent;
 import static interfaces.Menu.escritorio;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import metodos.Placeholder;
 import metodos.Validaciones;
 
 /**
@@ -17,11 +18,11 @@ import metodos.Validaciones;
  */
 public class RegistroClientes extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form RegistroClientes
-     */
+    Placeholder placeholder;
+
     public RegistroClientes() {
         initComponents();
+        iniciar_placeholder();
     }
 
     /**
@@ -34,12 +35,6 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         label_title = new javax.swing.JLabel();
-        label_dni = new javax.swing.JLabel();
-        label_nombres = new javax.swing.JLabel();
-        label_apaterno = new javax.swing.JLabel();
-        label_amaterno = new javax.swing.JLabel();
-        label_direccion = new javax.swing.JLabel();
-        label_celular = new javax.swing.JLabel();
         txt_dni = new javax.swing.JTextField();
         txt_nombres = new javax.swing.JTextField();
         txt_apaterno = new javax.swing.JTextField();
@@ -57,24 +52,6 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
 
         label_title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         label_title.setText("Reistro de Clientes");
-
-        label_dni.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_dni.setText("DNI:");
-
-        label_nombres.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_nombres.setText("Nombres:");
-
-        label_apaterno.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_apaterno.setText("Ape. Paterno:");
-
-        label_amaterno.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_amaterno.setText("Ape. Materno:");
-
-        label_direccion.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_direccion.setText("Dirección:");
-
-        label_celular.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        label_celular.setText("Celular:");
 
         txt_dni.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txt_dni.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -162,35 +139,31 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                                    .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cb_direccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(78, 78, 78)
+                            .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addComponent(label_title))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txt_amaterno)
+                                .addComponent(txt_apaterno)
+                                .addComponent(txt_nombres)
+                                .addComponent(txt_dni))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label_amaterno)
-                                    .addComponent(label_apaterno)
-                                    .addComponent(label_nombres)
-                                    .addComponent(label_dni)
-                                    .addComponent(label_direccion)
-                                    .addComponent(label_celular))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_nombres)
-                                    .addComponent(txt_dni)
-                                    .addComponent(txt_apaterno)
-                                    .addComponent(txt_amaterno)
-                                    .addComponent(cb_direccion, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(txt_celular)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                                .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(label_title)))
+                        .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -199,36 +172,24 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(label_title)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_dni)
-                    .addComponent(txt_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_nombres)
-                    .addComponent(txt_nombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_nombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_apaterno)
-                    .addComponent(txt_apaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_apaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_amaterno)
-                    .addComponent(txt_amaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_amaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_direccion)
-                    .addComponent(cb_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cb_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_celular)
-                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -297,12 +258,6 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_registrar;
     private javax.swing.JComboBox<String> cb_direccion;
-    private javax.swing.JLabel label_amaterno;
-    private javax.swing.JLabel label_apaterno;
-    private javax.swing.JLabel label_celular;
-    private javax.swing.JLabel label_direccion;
-    private javax.swing.JLabel label_dni;
-    private javax.swing.JLabel label_nombres;
     private javax.swing.JLabel label_title;
     private javax.swing.JTextField txt_amaterno;
     private javax.swing.JTextField txt_apaterno;
@@ -329,5 +284,13 @@ public class RegistroClientes extends javax.swing.JInternalFrame {
         } else {
             btn_registrar.setEnabled(true);
         }
+    }
+
+    private void iniciar_placeholder() {
+        placeholder = new Placeholder("Ingrese su DNI", txt_dni);
+        placeholder = new Placeholder("Ingrese su Nombre", txt_nombres);
+        placeholder = new Placeholder("Ingrese su Apellido Paterno", txt_apaterno);
+        placeholder = new Placeholder("Ingrese su Apellido Materno", txt_amaterno);
+        placeholder = new Placeholder("Ingrese su Celular", txt_celular);
     }
 }

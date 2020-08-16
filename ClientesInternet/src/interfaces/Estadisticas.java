@@ -5,7 +5,6 @@
  */
 package interfaces;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.ArrayList;
 import org.jfree.chart.ChartFactory;
@@ -16,7 +15,6 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.IntervalXYDataset;
 
 /**
  *
