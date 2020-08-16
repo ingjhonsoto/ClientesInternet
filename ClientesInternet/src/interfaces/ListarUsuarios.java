@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+//pauetes
 import estilos.GestionCeldas;
 import estilos.GestionEncabezadoTabla;
 import estilos.ModeloTablaLU;
